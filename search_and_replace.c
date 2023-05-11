@@ -123,16 +123,18 @@ void search_dir(const char *dirpath, const char *oldstr, const char *newstr)
             continue;
         }
 
-        if (// Check if the path is a directory
-if (S_ISDIR(statbuf.st_mode)) {
+        if (S_ISDIR(statbuf.st_mode))
+        {
             // Recursively search the directory
             search_dir(path, oldstr, newstr);
-}
-else if (S_ISREG(statbuf.st_mode)) {
+        }
+        else if (S_ISREG(statbuf.st_mode))
+        {
             // Search and replace in the regular file
             search_and_replace(path, oldstr, newstr);
-}
-else if (S_ISLNK(statbuf.st_mode)) {
+        }
+        else if (S_ISLNK(statbuf.st_mode))
+        {
             // Get the path of the target file of the symbolic link
             char target[MAXLINE];
             ssize_t len = readlink(path, target, MAXLINE);
@@ -164,15 +166,17 @@ else if (S_ISLNK(statbuf.st_mode)) {
                 printf("Target of symbolic link is not a regular file: %s\n", path);
                 continue;
             }
-    }
-    else {
+        }
+        else
+        {
             printf("Unsupported file type: %s\n", path);
             continue;
-    }
+        }
     }
 
     closedir(dp);
 }
+
 
 int main(int argc, char *argv[])
 {
