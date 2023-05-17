@@ -85,7 +85,6 @@ void search_file(const char* file_path, const char* search_str) {
     fclose(fp);
 
     if (!found) {
-        printf("Not found in: %s\n", file_path);
     }
 }
 
