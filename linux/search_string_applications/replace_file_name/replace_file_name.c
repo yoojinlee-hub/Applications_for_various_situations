@@ -3,6 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 void search_and_replace(char* dir_path, char* str_a, char* str_b);
 void replace_filename(char* file_path, char* str_a, char* str_b);
@@ -82,9 +83,8 @@ void replace_filename(char* file_path, char* str_a, char* str_b) {
         size_t len_a = strlen(str_a);
         size_t len_b = strlen(str_b);
 
-        // 새로운 파일명을 생성함
-        size_t new_name_len = strlen(file_name) - len_a + len_b + 1;
-        new_name = malloc(new_name_len);
+        // 새로운 파일명을 위한 메모리를 할당함
+        new_name = (char*)malloc(strlen(file_name) + len_b - len_a + 1);
         if (new_name == NULL) {
             printf("Error: malloc() failed\n");
             free(file_name);
