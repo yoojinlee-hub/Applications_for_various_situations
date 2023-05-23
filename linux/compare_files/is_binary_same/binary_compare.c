@@ -9,6 +9,20 @@ int compare_binary_files(const char* file_path1, const char* file_path2) {
         return -1;
     }
 
+    // 파일 크기 비교
+    fseek(file1, 0, SEEK_END);
+    fseek(file2, 0, SEEK_END);
+    long size1 = ftell(file1);
+    long size2 = ftell(file2);
+    rewind(file1);
+    rewind(file2);
+
+    if (size1 != size2) {
+        fclose(file1);
+        fclose(file2);
+        return 0; // 크기가 다르면 다른 파일로 판단
+    }
+
     int is_equal = 1; // 초기값을 같다고 설정
 
     int byte1, byte2;
@@ -17,11 +31,6 @@ int compare_binary_files(const char* file_path1, const char* file_path2) {
             is_equal = 0;
             break;
         }
-    }
-
-    // 두 파일 중 하나라도 EOF에 도달하지 않은 경우에는 다른 파일 크기 또는 내용이 있음을 의미함
-    if (byte1 != EOF || byte2 != EOF) {
-        is_equal = 0;
     }
 
     fclose(file1);
@@ -51,4 +60,5 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
 
