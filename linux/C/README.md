@@ -1,0 +1,1 @@
+gcc -o NAME.c EXEFILENAME
